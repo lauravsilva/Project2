@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8" />
+	<title>Should I Go Outside? Documentation</title>
+	<link href='http://fonts.googleapis.com/css?family=Dosis|Sigmar+One' rel='stylesheet' type='text/css'>
+	<link href="css/materialize.css" type="text/css" rel="stylesheet" media="screen,projection"/>
+
+</head>
+<body>
+	<div class="container">
+		<div class="row">
+			<div class="col s12 center-align">
+				<h1 class="orange-text text-darken-3">Should I Go Outside?</h1>
+				<h5 class="grey-text text-darken-2">An app that tells you if should stay in or go out based on the weather</h5>
+				<br/>
+				<a href="insideorout.html"><button class="btn light-blue darken-4" type="submit" name="searchButton" id="searchButton">Click here to launch application</button></a>
+				<br/><br/>
+			</div>
+
+			<div class="col s6">
+				<p><h4 class="orange-text text-lighten-1">Features:</h4>
+					<ul>
+						<li>Get current weather information based on user input (city or zip code)</li>
+						<li>Based on the weather:</li>
+							<ol>
+								<li>Encourage the user to go outside (Between 60 and 89 degrees F) and give a randomized suggestion for an outdoor activity</li>
+								<li>Give the user two options for staying in:</li>
+									<ol>
+										<li>Choose a movie for me: list a random movie based on specified genre</li>
+										<li>Let me search Netflix: allow the user to search Netflix by title</li>
+									</ol>
+							</ol>
+						<li>Link to <a href="https://www.fan.tv/">Fan.tv</a> so the user can find where to watch the random movie</li>
+						<li>Link to directly watch on Netflix</li>
+					</ul>
+				</p>
+
+				<p><h4 class="orange-text text-lighten-1">Web services:</h4>
+					<ul>
+						<li><a href="http://www.worldweatheronline.com/api/docs/local-city-town-weather-api.aspx">World Weather Online</a></li>
+						<li><a href="https://www.themoviedb.org/documentation/api/">The Movie Database</a></li>
+						<li><a href="http://netflixroulette.net/api/">Netflix Roulette</a></li>
+					</ul>
+				</p>
+
+				
+			</div>
+
+			<div class="col s6">
+				<p><h4 class="orange-text text-lighten-1">Resources:</h4>
+					Besides the APIs already mentioned, these sources were also used in the making of this application:
+					<ul>
+						<li><a href="http://materializecss.com/">Materialize</a></li>
+						<li><a href="https://jqueryui.com/accordion/">jQueryUI accordion</a></li>
+						<li><a href="http://docs.themoviedb.apiary.io/">The Movie DB Docs</a></li>
+						<li><a href="https://github.com/EtienneWan/tmdb-js">tmdb parser</a></li>
+					</ul>
+				</p>
+
+				<p><h4 class="orange-text text-lighten-1">High-Level Architecture:</h4>
+					This application was created with JavaScript, jQuery, HTML5 and CSS. There are three modules in the api.js file which use the respective APIs: movieDatabase, weather, netflixroulette.
+				</p>
+
+				<p><h4 class="orange-text text-lighten-1">Known Bug:</h4>
+					<ul>
+						<li>If the movie title has special characters, it will not be displayed.</li>
+					</ul>
+				</p>
+			</div>
+
+			<div class="col s12">
+				<p><h4 class="orange-text text-lighten-1">Design & Technical Decisions:</h4>
+					My original idea for this project had to be changed as soon as I actually understood what the APIs I had chosen did. RottenTomatoes did not approve an API key for me, the NetflixRoulette did not populate a list of random choices based on a movie genre like I had hoped, and Yahoo Weather was difficult to implement. From there, I brainstormed and did more research to find alternative web services. In the end, I used two APIs that did not require an API key and one that did (Movie Database). 
+
+					<br/><br/>
+					I kept each API separate in order to adhere to good design practices such as separation of concerns and low coupling, and each has its own method of parsing the data and displaying it. Most of the JavaScript work is done in one file, the HTML in another, and the CSS in yet another. jQuery was used to hide and show certain divs, and for the creation of the accordion. For the HTML5 technologies, I used a combination of new semantic features including a footer tag, progress bar, a datalist for suggestions, and specified the input type as search and required. I take pride in the fact that the application is easily extendable, so in the future I could implement other features such as more options for staying in or a current location button.
+					
+					<br/><br/>
+					When it came to design, I decided to use the Materialize framework (only the CSS file). I had only ever used Bootstrap, so I wanted to try something new and create a very minimalistic yet clean UI. This was a great choice because the framework has so much to offer, from a responsive grid, to a predetermined list of colors, to little icons and much more.
+
+					<br/>
+					<h5 class="light-blue-text text-darken-4">Extras: </h5>
+					For my extra work, I used three APIs and really focused my attention on usability and creating an application that is not only aesthetically pleasing, but an overall cool / useful experience. The two column layout reduces the amount that the user has to scroll, a progress bar is used when loading, there are fade-ins and outs for different components and overall I believe there is sufficient feedback to easily understand the application. In addition, I created a randomizing algorithm so the movie chosen for the user based on genre will rarely ever repeat; the user can keep pressing the arrow button to get a new recommendation as many times as he or she may want. 
+				</p>
+			</div>
+
+
+	</div>
+
+</body>
+</html>
+
+
+
+
+
