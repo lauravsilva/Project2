@@ -19,6 +19,9 @@
 			};
 
 			xhr.open("GET", movieDatabase.MOVIES_API_URL + "/genre/" + id + "/movies?" + page_string + page + api_string, true);
+            
+            console.log(movieDatabase.MOVIES_API_URL + "/genre/" + id + "/movies?" + page_string + page + api_string);
+            
 			xhr.setRequestHeader('Accept', 'application/json');
 			xhr.responseType = "text";
 			xhr.onreadystatechange = function () {
