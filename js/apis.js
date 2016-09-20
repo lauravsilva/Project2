@@ -20,7 +20,7 @@
 
 			xhr.open("GET", movieDatabase.MOVIES_API_URL + "/genre/" + id + "/movies?" + page_string + page + api_string, true);
             
-            console.log(movieDatabase.MOVIES_API_URL + "/genre/" + id + "/movies?" + page_string + page + api_string);
+            //console.log(movieDatabase.MOVIES_API_URL + "/genre/" + id + "/movies?" + page_string + page + api_string);
             
 			xhr.setRequestHeader('Accept', 'application/json');
 			xhr.responseType = "text";
@@ -69,8 +69,8 @@
 	}
 
 	window.weather = {
-		WEATHER_JSON_URL: "http://api.worldweatheronline.com/free/v2/weather.ashx?format=json&key=",
-		WEATHER_API_KEY: "1b391b01a1b7b019c9eed185c5b0c",
+		WEATHER_JSON_URL: "http://api.worldweatheronline.com/premium/v1/weather.ashx?format=json&key=",
+		WEATHER_API_KEY: "c0ae14030fa94d9dadb05111161909",
 		outsideOptions: ["to a local park", "to the beach", "for a bike ride", "for a walk", "for a swim", "outside with a good book", "outside to try a new outdoor activity like hiking or dirt biking", "to the zoo", "to walk the dog", "to climb a tree", "geocaching", "to a local art festival", "fishing", "longboarding", "to play ultimate frisbee with a friend", "exploring", "to miniature golf", "camping", "to a concert", "slacklining"],
 
 		//make call to weather api and parse json
@@ -118,15 +118,24 @@
 				$("#weatherContentRight").hide();
 				return; // bail out
 			}
-
+            
+            // get value of date
+            var weatherDate =   $('input[name="date"]:checked').val();
+            
 			var line = "";
 			var bigStringLeft = "";
 			var bigStringRight = "";
 
 			var allDataCurrent = obj.data.current_condition[0];
-			var allDataWeather = obj.data.weather[0];
+			var allDataWeather = obj.data.weather[weatherDate];
 
-			line = "<h5>Weather for " + obj.data.request[0].query + "</h5>";
+			if (weatherDate == 0){
+                line = "<h5>Current Weather for " + obj.data.request[0].query + "</h5>";
+            }
+            else {
+                line = "<h5>Weather for " + obj.data.request[0].query + "</h5>";
+            }
+            line += "<strong>" + moment(allDataWeather.date).format('LL') + "</strong>";
 			
 			var lineLeft = "<h1 id=\"temp\" class=\"light-blue-text text-darken-4\"> " + allDataCurrent.temp_F + "&deg; F</h1>";
 			lineLeft += "<h4 class=\"grey-text darken-1\"> " + allDataCurrent.weatherDesc[0].value + "</h4>";
@@ -144,26 +153,31 @@
 
 			var tempF = allDataCurrent.temp_F;
 			var weatherDescription = allDataCurrent.weatherDesc[0].value;
-
-			weather.decision(tempF, weatherDescription);
+            
+			weather.decision(tempF, weatherDescription, weatherDate);
 			
 			$("#weatherContentLeft").fadeIn(1000);
 			$("#weatherContentRight").fadeIn(1000);
 
 			document.querySelector("#weatherContent").innerHTML = line;
 			document.querySelector("#weatherContentLeft").innerHTML = bigStringLeft;
-			document.querySelector("#weatherContentRight").innerHTML = bigStringRight;
-
+			document.querySelector("#weatherContentRight").innerHTML = bigStringRight;            
 		},
 
 		//depending on weather, print different statements that decide what user should do
-		decision: function(tempF, weatherDescription){
+		decision: function(tempF, weatherDescription, weatherDate){
 			var stringHead = "<h4 class=\"orange-text text-lighten-1\">";
 			var stringSub = "<h5 class=\"grey-text text-darken-3\">"
 
 			if(tempF >= 60 && tempF <= 89){
 				var num = Math.floor(Math.random() * (weather.outsideOptions.length-1));
-				stringHead += "It's a beautiful day! </h3>";
+				
+                if (weatherDate == 0){
+                    stringHead += "It's a beautiful day! </h3>";
+                }
+                else {
+                    stringHead += "It will be a beautiful day tomorrow! </h3>";
+                }
 				stringSub += "<strong>You should definitely go outside.</strong><br/>"
 				stringSub += "How about going " + weather.outsideOptions[num] + "?</h5>";
 				if (weatherDescription === "Sunny"){
@@ -174,7 +188,7 @@
 			else{
 				if(tempF >= 90){
 					stringHead += "It is waaaay too hot outside! </h3>";
-					stringSub += "Avoid the outdoors at all cost!<br/>";
+					stringSub += "Avoid the outdoors at all cost!</h5>";
 				}
 				else if(tempF >= 40 && tempF <= 59){
 					stringHead += "It's chilly! </h3>";
@@ -192,7 +206,8 @@
 					stringHead += "Even the polar bears know to stay inside! </h4>";
 				}
 				
-				stringSub += "These are your options for staying in: </h5>";
+				stringSub += "<strong>These are some options for staying in: </strong>";
+                
 				$("#displayOptions").fadeIn(1000);
 			}
 

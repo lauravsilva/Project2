@@ -9,6 +9,7 @@
 	<script src="https://code.jquery.com/jquery-1.10.2.js"></script>
 	<script src="https://code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
 	<script type="text/javascript" src="js/apis.js"></script>
+	<script type="text/javascript" src="js/moment.min.js"></script>
 
 	<script>
 	"use strict";
@@ -64,9 +65,16 @@
 			<div class="col s12 center-align">
 				<h1 class="light-blue-text text-darken-4"><a href="insideorout.html">Should I Go Outside?</a></h1>
 				<h5 class="grey-text text-darken-2">Don't know what to do? We'll tell you if you should go out.</h5>
-				<input id="searchweather" type="search" size="10" maxlength="40" placeholder="Search city or zip code" autofocus class="zipInput" autocomplete="on" required/> 
+				
+                <input id="searchweather" type="search" size="10" maxlength="50" placeholder="Search city or zip code" autofocus class="zipInput" autocomplete="on" required/> 
 				<br/>
-				<button class="btn orange darken-3 tellme-btn" type="submit" name="searchButton" id="searchButton">Tell me what to do</button>
+                
+                <div class="initialInput">
+                      <input type="radio" id="searchdate" name="date" value="0"> Today<br/>
+                      <input type="radio" id="searchdate" name="date" value="1"> Tomorrow<br/>
+                    <br/>
+                    <button class="btn orange darken-3 tellme-btn" type="submit" name="searchButton" id="searchButton">Tell me what to do</button>
+                </div>
 				<br/><br/>
 			</div>
 

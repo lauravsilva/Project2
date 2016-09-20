@@ -6155,10 +6155,12 @@ textarea {
   Radio Buttons
 ***************/
 /* Remove default Radio Buttons */
+/*
 [type="radio"]:not(:checked), [type="radio"]:checked {
   position: absolute;
   left: -9999px;
   visibility: hidden; }
+*/
 
 [type="radio"]:not(:checked) + label, [type="radio"]:checked + label {
   position: relative;
@@ -7946,4 +7948,15 @@ button.picker__today:focus, button.picker__clear:focus, button.picker__close:foc
   #temp{
     font-size: 4em;
   }
+}
+
+
+.initialInput {
+    width: 50%;
+    text-align: left;
+    margin: 10px auto;
+}
+
+#searchButton {
+    width: 100%;
 }
