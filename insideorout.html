@@ -1,193 +1,155 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-	<meta charset="utf-8" />
-	<title>Should I Go Outside?</title>
+    <meta charset="utf-8" />
+    <title>Should I Go Outside?</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no">
+    <link href="css/materialize.css" type="text/css" rel="stylesheet" media="screen" />
+    <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+    <script src="https://code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+    <script type="text/javascript" src="js/apis.js"></script>
+    <script type="text/javascript" src="js/moment.min.js"></script>
+    <script>
+        "use strict";
+        (function () {
+            var RETURN_KEY = 13;
+            var genreDropdown = 0;
+            var pageNum = 1;
+            window.onload = init;
 
-	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no">
-	<link href="css/materialize.css" type="text/css" rel="stylesheet" media="screen,projection"/>
-	<script src="https://code.jquery.com/jquery-1.10.2.js"></script>
-	<script src="https://code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
-	<script type="text/javascript" src="js/apis.js"></script>
-	<script type="text/javascript" src="js/moment.min.js"></script>
-
-	<script>
-	"use strict";
-		(function () {
-			var RETURN_KEY = 13;
-			var genreDropdown = 0;
-			var pageNum = 1;
-
-			window.onload = init;
-
-			function init(){
-				$("#displayOptions").hide();
-				$("#decisionContent").hide();
-				$("#weatherAll").hide();
-				
-				document.querySelector("#searchweather").onkeyup = doKeyup;
-				document.querySelector("#searchButton").onclick = weather.getWeather;
-				document.querySelector("#searchMovieByNetflix").onclick = netflixroulette.searchNetflix;
-				document.querySelector("#searchMovieByGenre").onclick = function(){
-					movieDatabase.displayMovieResults(genreDropdown, pageNum);
-					pageNum++;
-				}
-				document.querySelector('#sel_genre').onchange = function(e){
-					genreDropdown = e.target.value;
-					pageNum = 1;
-				}
-			}
-
-			// enter for searching weather
-			function doKeyup(e){
-				if(e.keyCode == RETURN_KEY){
-					weather.getWeather();
-				}
-			}
-
-			//jquery for accordion
-			$(function() {
-			    $( ".collapsible" ).accordion({
-			    	collapsible: true,
-			    	active: false,
-			    	heightStyle: "content"
-			    });
-			});
-
-		})();
-
-	</script>
+            function init() {
+                $("#displayOptions").hide();
+                $("#decisionContent").hide();
+                $("#weatherAll").hide();
+                document.querySelector("#searchweather").onkeyup = doKeyup;
+                document.querySelector("#searchButton").onclick = weather.getWeather;
+                document.querySelector("#searchMovieByNetflix").onclick = netflixroulette.searchNetflix;
+                document.querySelector("#searchMovieByGenre").onclick = function () {
+                    movieDatabase.displayMovieResults(genreDropdown, pageNum);
+                    pageNum++;
+                }
+                document.querySelector('#sel_genre').onchange = function (e) {
+                    genreDropdown = e.target.value;
+                    pageNum = 1;
+                }
+            }
+            // enter for searching weather
+            function doKeyup(e) {
+                if (e.keyCode == RETURN_KEY) {
+                    weather.getWeather();
+                }
+            }
+            //jquery for accordion
+            $(function () {
+                $(".collapsible").accordion({
+                    collapsible: true
+                    , active: false
+                    , heightStyle: "content"
+                });
+            });
+        })();
+    </script>
 </head>
 
 <body>
-	<div class="container">
-		<div class="row">
-			<div class="col s12 center-align">
-				<h1 class="light-blue-text text-darken-4"><a href="insideorout.html">Should I Go Outside?</a></h1>
-				<h5 class="grey-text text-darken-2">Don't know what to do? We'll tell you if you should go out.</h5>
-				
-                <input id="searchweather" type="search" size="10" maxlength="50" placeholder="Search city name or zip code" autofocus class="zipInput" autocomplete="on" required/> 
-				<br/>
-                
+    <div class="container">
+        <div class="row">
+            <div class="col s12 center-align">
+                <h1 class="light-blue-text text-darken-4"><a href="insideorout.html">Should I Go Outside?</a></h1>
+                <h5 class="grey-text text-darken-2">Don't know what to do? We'll tell you if you should go out.</h5>
+                <input id="searchweather" type="search" size="10" maxlength="50" placeholder="Search city name or zip code" autofocus class="zipInput" autocomplete="on" required/>
+                <br/>
                 <div class="initialInput">
-                      <input type="radio" id="searchdate" name="date" value="0"> Today<br/>
-                      <input type="radio" id="searchdate" name="date" value="1"> Tomorrow<br/>
+                    <input type="radio" name="date" value="0">Today
+                    <br/>
+                    <input type="radio" name="date" value="1">Tomorrow
+                    <br/>
                     <br/>
                     <button class="btn orange darken-3 tellme-btn" type="submit" name="searchButton" id="searchButton">Tell me what to do</button>
                 </div>
-				<br/><br/>
-			</div>
-
-			<div class="col s12 m6">
-				<div id="decisionContent">
-					<div id="decisionContentHead" class="center-align">
-						
-					</div>
-					<div id="decisionContentSub" class="center-align">
-						
-					</div>
-				</div>
-
-				<div id="displayOptions">
-					<div class="collapsible" data-collapsible="accordion">
-				    	<div class="collapsible-header">
-				    		<h5 class="light-blue-text text-darken-4">Choose a movie for me</h5>
-				    	</div>
-				    	<div class="collapsible-body1">
-				    		<div class="input-field col s7 center-align">
-					    		<select class="btn dropdown-button light-blue darken-3" id="sel_genre" name="sel_genre">
-									<option value="" disabled selected>Select a genre</option>
-									<option value="28">Action</option>
-									<option value="12">Adventure</option>
-									<option value="16">Animation</option>
-									<option value="35">Comedy</option>
-									<option value="80">Crime</option>
-									<option value="99">Documentary</option>
-									<option value="18">Drama</option>
-									<option value="10751">Family</option>
-									<option value="14">Fantasy</option>
-									<option value="10769">Foreign</option>
-									<option value="36">History</option>
-									<option value="27">Horror</option>
-									<option value="10402">Music</option>
-									<option value="9648">Mystery</option>
-									<option value="10749">Romance</option>
-									<option value="878">Science Fiction</option>
-									<option value="10770">TV Movie</option>
-									<option value="53">Thriller</option>
-									<option value="10752">War</option>
-									<option value="37">Western</option>
-								</select>
-							</div>
-							<br/>
-							<a class="btn-floating btn-medium orange darken-3 center" id="searchMovieByGenre"><i class="mdi-navigation-arrow-forward"></i></a>
-							<br/>
-							<span id="dynamicContentRandom" class="center-align">
+                <br/>
+                <br/> </div>
+            <div class="col s12 m6">
+                <div id="decisionContent">
+                    <div id="decisionContentHead" class="center-align"> </div>
+                    <div id="decisionContentSub" class="center-align"> </div>
+                </div>
+                <div id="displayOptions">
+                    <div class="collapsible" data-collapsible="accordion">
+                        <div class="collapsible-header">
+                            <h5 class="light-blue-text text-darken-4">Choose a movie for me</h5> </div>
+                        <div class="collapsible-body1">
+                            <div class="input-field col s7 center-align">
+                                <select class="btn dropdown-button light-blue darken-3" id="sel_genre" name="sel_genre">
+                                    <option value="" disabled selected>Select a genre</option>
+                                    <option value="28">Action</option>
+                                    <option value="12">Adventure</option>
+                                    <option value="16">Animation</option>
+                                    <option value="35">Comedy</option>
+                                    <option value="80">Crime</option>
+                                    <option value="99">Documentary</option>
+                                    <option value="18">Drama</option>
+                                    <option value="10751">Family</option>
+                                    <option value="14">Fantasy</option>
+                                    <option value="10769">Foreign</option>
+                                    <option value="36">History</option>
+                                    <option value="27">Horror</option>
+                                    <option value="10402">Music</option>
+                                    <option value="9648">Mystery</option>
+                                    <option value="10749">Romance</option>
+                                    <option value="878">Science Fiction</option>
+                                    <option value="10770">TV Movie</option>
+                                    <option value="53">Thriller</option>
+                                    <option value="10752">War</option>
+                                    <option value="37">Western</option>
+                                </select>
+                            </div>
+                            <br/> <a class="btn-floating btn-medium orange darken-3 center" id="searchMovieByGenre"><i class="mdi-navigation-arrow-forward"></i></a>
+                            <br/> <span id="dynamicContentRandom" class="center-align">
 								
-							</span>
-				    	</div>
-
-				    	<div class="collapsible-header">
-				    		<h5 class="light-blue-text text-darken-4">Let me search Netflix</h5>
-				    	</div>
-				    	<div class="collapsible-body">
-				    		<div class="col s12 center-align">
-					    		<input id="show_netflix_option" type="text" placeholder="Search Netflix by title" list="netflixSuggestions"/>
-
-<!-- 					    		<datalist id="netflixSuggestions">
-					    			<option value="Ferris Bueller's Day Off">&nbsp;</option>
-					    			<option value="Django Unchained">&nbsp;</option>
-					    			<option value="Skyfall">&nbsp;</option>
-					    			<option value="Star Trek Into Darkness">&nbsp;</option>
-					    		</datalist> -->
-
-					    		<a class="btn-floating btn-medium orange darken-3 center" id="searchMovieByNetflix"><i class="mdi-action-search"></i></a>
-					    		<br/>
-					    		<span id="dynamicContentNetflix" class="left-align">
-									
-								</span>
-							</div>
-				    	</div>
-				    </div>
-				</div>
-			</div> <!-- col s12 m6 -->
-
-			<div class="col s12 m6" id="weatherAll">
-
-				<hr class="hide-on-med-and-up" />
-
-				<!-- Weather for xxxxx -->
-				<div id="weatherContent"> 
-					<div class="progress">
-				    	<div class="indeterminate"></div>
-					</div>
-					<p> </p> 
-				</div>
-
-				<!-- temperature -->
-				<div class="col s12 m7">
-					<div id="weatherContentLeft">
-						<p> </p>
-					</div>
-				</div>
-	
-				<!-- specific temperature (low/high, visibility, etc) -->
-				<div class="col s12 m5">
-					<div id="weatherContentRight">
-						<p> </p>
-					</div>
-				</div>
-			</div>
-			
-		</div> <!-- row -->
-	</div> <!-- container -->
-
-<div class="footer-copyright">
-	<div class="container center">
-		<small> Made by: Laura Silva </small>
-        <!--<a class="light-blue-text text-darken-4" href="index.html">Resources</a>-->
-	</div>
-</div>
-
+							</span> </div>
+                        <div class="collapsible-header">
+                            <h5 class="light-blue-text text-darken-4">Let me search Netflix</h5> </div>
+                        <div class="collapsible-body">
+                            <div class="col s12 center-align">
+                                <input id="show_netflix_option" type="text" placeholder="Search Netflix by title" /> <a class="btn-floating btn-medium orange darken-3 center" id="searchMovieByNetflix"><i class="mdi-action-search"></i></a>
+                                <br/> <span id="dynamicContentNetflix" class="left-align">
+								</span> </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- col s12 m6 -->
+            <div class="col s12 m6" id="weatherAll">
+                <hr class="hide-on-med-and-up" />
+                <!-- Weather for xxxxx -->
+                <div id="weatherContent">
+                    <div class="progress">
+                        <div class="indeterminate"></div>
+                    </div>
+                    <p> </p>
+                </div>
+                <!-- temperature -->
+                <div class="col s12 m7">
+                    <div id="weatherContentLeft">
+                        <p> </p>
+                    </div>
+                </div>
+                <!-- specific temperature (low/high, visibility, etc) -->
+                <div class="col s12 m5">
+                    <div id="weatherContentRight">
+                        <p> </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- row -->
+    </div>
+    <!-- container -->
+    <div class="footer-copyright">
+        <div class="container center"> <small> Made by: Laura Silva </small> </div>
+    </div>
 </body>
+
 </html>
